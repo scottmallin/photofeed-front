@@ -16,7 +16,6 @@ export const isLoggedIn = (reqCookies = null) => {
 
 export const logIn = token => {
     Cookies.set('is_logged_in', token, { expires: 86400, sameSite: 'lax' });
-
     Router.push('/u/1');
 };
 
@@ -29,16 +28,14 @@ export const logOut = () => {
 
     if (typeof window !== 'undefined') {
         console.log(headers);
+
         api.post(`${API_URL}api/logout`, {
             headers: headers
         }).then(response => {
-            console.log('hooray?');
             if (response.data.error) {
-                console.log('oh no');
                 console.error(response.data.error);
             } else {
                 Cookies.remove('is_logged_in');
-
                 Router.push('/');
             }
         });
